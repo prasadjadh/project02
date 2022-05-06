@@ -6,18 +6,21 @@ const internSchema = new mongoose.Schema({
 
     name: {
         type: String,
-        required: true
+        required: true,
+        trim:true
     },
     email: {
         type: String,
         required: true,
-        unique:true,
         lowercase:true,
+        unique:true
+        
     },
    
     mobile:{
-        type: String,
+        type: Number,
         required:true,
+        minlength:9,
         maxlength:10,
         unique:true
     },

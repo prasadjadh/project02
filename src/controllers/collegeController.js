@@ -13,14 +13,15 @@ const createCollege = async function (req, res) {
   if (!data.fullName) {
     res.send({ status: false, msg: "fullname is requreid" });
   }
-  
-
-let validString = /\d/; //validating the string for numbers
-if (validString.test(data.name)) {
-  return res.status(400).send({ status: false, msg: "Enter a valid  Name" });
+  if (!data.logoLink) {
+    res.send({ status: false, msg: "logoLink is requreid" });
+  }
+let validString1 =/^[A-Za-z]{1,}$/
+if (!validString1.test(data.name)) {
+  return res.status(400).send({ status: false, msg: "Enter a valid Name" });
 }
-
-if (validString.test(data.fullName)) {
+let validString =/^[A-Za-z ,]{1,}$/ 
+if (!validString.test(data.fullName)) {
  return res.status(400).send({ status: false, msg: "Enter a valid  fullName" });
 }
 let college = await collegeModel.create(data);
