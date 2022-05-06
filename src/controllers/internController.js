@@ -36,6 +36,20 @@ const createIntern = async function(req,res){
   if (!validEmail.test(data.email)) {
     return res.status(400).send({ status: false, msg: "Please enter the Valid Email Id" });
   }
+  let checkName = await internModel.findOne({mobile:data.mobile,email:data.email})
+  if(checkName){
+    if(checkName.mobile === data.mobile){
+          res.status(403).send({status:false,msg:"This mobile Number already used"})
+    }
+  }
+  
+  if(checkName){
+    if(checkName.email === data.email){
+          res.status(403).send({status:false,msg:"This Email Id already used"})
+    }
+  }
+ 
+ 
   let intern = await internModel.create(data)
   res.status(201).send({Status:true,Data:intern})
 } catch(err) {

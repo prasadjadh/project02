@@ -24,6 +24,16 @@ let validString =/^[A-Za-z ,]{1,}$/
 if (!validString.test(data.fullName)) {
  return res.status(400).send({ status: false, msg: "Enter a valid  fullName" });
 }
+
+
+ let checkName = await collegeModel.findOne({name:data.name})
+ if(checkName){
+   if(checkName.name === data.name){
+         res.status(403).send({status:false,msg:"This collage Name already used"})
+   }
+ }
+
+
 let college = await collegeModel.create(data);
 res.status(201).send({ status: true, data: college });
 
