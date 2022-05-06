@@ -28,24 +28,24 @@ const createIntern = async function(req,res){
   if (!validname.test(data.name)) {
     return res.status(400).send({ status: false, msg: "Enter a valid Name" });
   }
-  let validMobile =/^[6-9]{1}[0-9]{9}$/
-  if (!validMobile.test(data.mobile)) {
-    return res.status(400).send({ status: false, msg: "Please enter the Valid mobile Number" });
-  }
+
   let validEmail = /^[a-z0-9]{1,}@[a-z]{1,}[.]{1}[a-z]{1,4}$/
   if (!validEmail.test(data.email)) {
     return res.status(400).send({ status: false, msg: "Please enter the Valid Email Id" });
   }
-  let checkName = await internModel.findOne({mobile:data.mobile})
-    if(checkName.mobile === data.mobile){
-          res.status(403).send({status:false,msg:"This mobile Number already used"})
-    }
   
   let checkemail = await internModel.findOne({email:data.email})
-      if(checkemail.email === data.email){
-          res.status(403).send({status:false,msg:"This Email Id already used"})
-    
-  }
+  if(checkemail){
+  res.status(403).send({status:false,msg:"This Email Id already used"})
+    }
+  let validMobile =/^[6-9]{1}[0-9]{9}$/
+    if (!validMobile.test(data.mobile)) {
+      return res.status(400).send({ status: false, msg: "Please enter the Valid mobile Number" });
+    }
+  let checkMobile = await internModel.findOne({mobile:data.mobile})
+  if(checkMobile){
+          res.status(403).send({status:false,msg:"This mobile Number already used"})
+    }
  
  
   let intern = await internModel.create(data)
