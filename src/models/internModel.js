@@ -16,7 +16,6 @@ const internSchema = new mongoose.Schema({
         unique:true
         
     },
-   
     mobile:{
         type: Number,
         required:true,
@@ -24,8 +23,7 @@ const internSchema = new mongoose.Schema({
     },
     collegeId: {
         type: ObjectId,         
-        ref: 'college',
-        required:true 
+        ref: 'college'
     },
   
     isDeleted: {
